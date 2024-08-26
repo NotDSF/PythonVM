@@ -1,8 +1,8 @@
 function vm(proto) {
     const { Instructions, Constants } = proto;
     return (async (...arguments) => {
-        let stack = [];
-        let fast = {};
+        const stack = [];
+        const fast = {};
         let PC = 0;
         while (true) {
             const { opcode, cIndex } = Instructions[PC];
@@ -46,17 +46,17 @@ function vm(proto) {
                     fast[Constants[cIndex]] = stack.pop();
                     break; 
                 case 105: // BUILD_MAP
-                    let map = {};
+                    const map = {};
                     for (let i=0; i < Constants[cIndex] * 2; i+=2) {
-                        let value = stack.pop();
-                        let index = stack.pop();
+                        const value = stack.pop();
+                        const index = stack.pop();
                         map[index] = value; 
                     }
                     stack.push(map);
                     break;
                 case 156: // BUILD_CONST_KEY_MAP
-                    let amap = {};
-                    let keys = stack.pop().reverse();
+                    const keys = stack.pop().reverse();
+                    const amap = {};
                     for (let i=0; i < Constants[cIndex]; i++) {
                         amap[keys[i]] = stack.pop();
                     }
@@ -68,17 +68,17 @@ function vm(proto) {
                         - Self or Null
                         - Arguments
                     */
-                    let args = [];
+                    const args = [];
                     for (let i=0; i < Constants[cIndex]; i++) {
                         args.push(stack.pop());
                     }
 
-                    let self = stack.pop() || stack.pop();
+                    const self = stack.pop() || stack.pop();
                     stack.push(await self(...args.reverse()));
                     break;
                 case 122: // BINARY_OP
-                    let right = stack.pop();
-                    let left = stack.pop();
+                    const right = stack.pop();
+                    const left = stack.pop();
                     let out;
 
                     switch (Constants[cIndex]) {
@@ -102,8 +102,8 @@ function vm(proto) {
                     stack.push(out);
                     break;
                 case 107: // COMPARE_OP
-                    let lleft = stack.pop();
-                    let rright = stack.pop();
+                    const lleft = stack.pop();
+                    const rright = stack.pop();
                     let oout;
 
                     switch (Constants[cIndex]) {

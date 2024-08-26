@@ -1,6 +1,6 @@
 function precompute(proto) {
-    let Instructions = [];
-    let Constants = [];
+    const Instructions = [];
+    const Constants = [];
     const Proto = {
         Constants,
         Instructions
