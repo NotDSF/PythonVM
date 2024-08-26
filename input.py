@@ -6,4 +6,11 @@ def test(b):
 
 test(1)
 test("hi" == "n")
-test(get("https://google.com"))
+
+if "hi" == "hi":
+    console.log("yes")
+
+if "nigger" == "n":
+    console.log("noc")
+
+console.log("yeeee")
