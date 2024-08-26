@@ -1,2 +1,2 @@
-# PythonVM
-Python VM made in JavaScript
+# Python Virtual Machine
+Python VM made in pure JavaScript
