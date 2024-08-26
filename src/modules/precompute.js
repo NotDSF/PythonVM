@@ -17,17 +17,11 @@ function precompute(proto) {
                 argval = precompute(argval);
                 break;
             case "POP_JUMP_IF_FALSE":
-                argval = proto.indexOf(proto.find((instr) => instr.offset === argval )) - 1;
+                argval = proto.indexOf(proto.find((instr) => instr.offset === argval)) - 1;
                 break;
             case "COMPARE_OP":
-                switch (argval) {
-                    case "==":
-                        argval = 0;
-                        break;
-                    case "!=":
-                        argval = 1;
-                        break;
-                }
+                opcode = -1 - ["==", "!=", ">", "<", ">=", "<="].indexOf(argval); // reserve 0-7
+                argval = null;
                 break;
         }
 

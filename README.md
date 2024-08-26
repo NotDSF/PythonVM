@@ -21,6 +21,10 @@ Virtual machine for Python 3.12.5, made in pure JavaScript.
 - COMPARE_OP
 - POP_JUMP_IF_FALSE
 - RETURN_CONST
+- RETURN_VALUE
+- BUILD_STRING
+- FORMAT_STRING
+- JUMP_FORWARD
 
 ## Runtime Environment
 This doesn't support the native python library for obvious reasons, however you have full access to the JavaScript Environment

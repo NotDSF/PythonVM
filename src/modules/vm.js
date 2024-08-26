@@ -101,33 +101,49 @@ function vm(proto) {
 
                     stack.push(out);
                     break;
-                case 107: // COMPARE_OP
-                    const lleft = stack.pop();
-                    const rright = stack.pop();
-                    let oout;
-
-                    switch (Constants[cIndex]) {
-                        case 0:
-                            oout = lleft == rright;
-                            break;
-                        case 1:
-                            oout = lleft != rright;
-                            break;
-                    }
-
-                    stack.push(oout);
+                // Custom COMPARE_OP
+                case -1: // ==
+                    stack.push(stack.pop() == stack.pop());
                     break;
+                case -2: // !=
+                    stack.push(stack.pop() != stack.pop());
+                    break;
+                case -3: // >
+                    stack.push(stack.pop() < stack.pop());
+                    break;
+                case -4: // <
+                    stack.push(stack.pop() > stack.pop());
+                    break;
+                case -5: // >=
+                    stack.push(stack.pop() <= stack.pop());
+                    break;
+                case -6: // <=
+                    stack.push(stack.pop() >= stack.pop());
+                    break;
+                // END
                 case 114: // POP_JUMP_IF_FALSE
                     if (!stack.pop()) {
                         PC = Constants[cIndex];
                     }
                     break;
+                case 110: // JUMP_FORWARD
+                    PC += stack.pop();
+                    break;
                 case 121: // RETURN_CONST
                     return Constants[cIndex];
-                case 83:
+                case 83: // RETURN_VALUE
                     return stack.pop();
+                case 155: // FORMAT_STRING
+                    break;
+                case 157: // BUILD_STRING
+                    const str = [];
+                    for (let i=0; i < Constants[cIndex]; i++) {
+                        str.push(stack.pop());
+                    }
+                    stack.push(str.reverse().join(""));
+                    break;
                 default:
-                    console.log("Unsupported opcode:", opcode);
+                    console.log("Unsupported instruction:", Instructions[PC - 1]);
             }
         }
     });
